@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING
 
-from fastapi_users.db import SQLAlchemyBaseUserTable
-from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase
+from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase, SQLAlchemyBaseUserTable
 
 from core.types.user_id import UserIdType
 
