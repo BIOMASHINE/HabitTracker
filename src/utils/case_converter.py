@@ -1,3 +1,7 @@
+"""
+Function that automatically creates a table name
+"""
+
 def camel_case_to_snake_case(input_str: str) -> str:
     chars = []
 
