@@ -9,5 +9,4 @@ router = APIRouter(
 )
 router.include_router(
     auth_router,
-    prefix=settings.api.v1.prefix,
 )
