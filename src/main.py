@@ -5,6 +5,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 
+from actions.create_superuser import create_superuser
 from core.config import settings
 
 from api import router as api_router
@@ -14,6 +15,7 @@ from core.models.db_helper import db_helper
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # startup
+    await create_superuser()
     yield
     # shutdown
     await db_helper.dispose()
