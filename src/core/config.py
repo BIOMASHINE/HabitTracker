@@ -1,4 +1,4 @@
-from pydantic import BaseModel, PostgresDsn
+from pydantic import BaseModel, PostgresDsn, EmailStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -46,6 +46,11 @@ class AccessToken(BaseModel):
     verification_token_secret: str
 
 
+class SuperuserInfo(BaseModel):
+    email: EmailStr
+    password: str
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(".env.template", ".env"),
@@ -57,6 +62,7 @@ class Settings(BaseSettings):
     api: ApiPrefix = ApiPrefix()
     db: DatabaseConfig
     access_token: AccessToken
+    superuser_info: SuperuserInfo
 
 
 settings = Settings()

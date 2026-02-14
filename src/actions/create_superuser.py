@@ -6,6 +6,7 @@ from os import getenv
 from fastapi_users.exceptions import UserAlreadyExists
 from api.dependencies.authentication.users import get_users_db
 from core.authentication.user_manager import UserManager
+from core.config import settings
 from core.models import db_helper, User
 
 from api.dependencies.authentication.user_manager import get_user_manager
@@ -18,8 +19,8 @@ get_users_db_context = contextlib.asynccontextmanager(get_users_db)
 get_user_manager_context = contextlib.asynccontextmanager(get_user_manager)
 
 
-default_email = getenv("DEFAULT_EMAIL", "admin@admin.com")
-default_password = getenv("DEFAULT_PASSWORD", "8fQpL2zX9wRtY3kP")
+default_email = getenv("DEFAULT_EMAIL", settings.superuser_info.email)
+default_password = getenv("DEFAULT_PASSWORD", settings.superuser_info.password)
 default_is_active = True
 default_is_superuser = True
 default_is_verified = True
