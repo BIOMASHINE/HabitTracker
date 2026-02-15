@@ -55,6 +55,11 @@ class SuperuserInfo(BaseModel):
     password: str
 
 
+class SmtpConfig(BaseModel):
+    smtp_host: str = "127.0.0.1"
+    smtp_port: int = 1025
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(".env.template", ".env"),
@@ -67,6 +72,7 @@ class Settings(BaseSettings):
     db: DatabaseConfig
     access_token: AccessToken
     superuser_info: SuperuserInfo
+    smtp: SmtpConfig = SmtpConfig()
 
 
 settings = Settings()
