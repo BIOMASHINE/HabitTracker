@@ -1,6 +1,10 @@
+from pathlib import Path
+
 from pydantic import BaseModel, PostgresDsn, EmailStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 class RunConfig(BaseModel):
     host: str = "0.0.0.0"
