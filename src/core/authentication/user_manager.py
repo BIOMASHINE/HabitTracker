@@ -6,8 +6,9 @@ from typing import Optional, TYPE_CHECKING
 
 from fastapi_users.db import BaseUserDatabase
 
-from mailing.send_email_confirmed import send_email_confirmed
-from mailing.send_verification_email import send_verification_email
+from mailing.email_verification import send_email_confirmed
+from mailing.password_reset_email import send_password_reset_email, send_password_success_reset_email
+from mailing.email_verification import send_verification_email
 
 if TYPE_CHECKING:
     from fastapi_users.password import PasswordHelperProtocol
@@ -50,6 +51,29 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, UserIdType]):
             "User %r has forgot their password. Reset token: %r.",
             user.id,
             token,
+        )
+        password_reset_link = "http://127.0.0.1:8000/docs#/Auth/reset_reset_password_api_v1_auth_reset_password_post"
+
+        self.background_tasks.add_task(
+            send_password_reset_email,
+            user=user,
+            password_reset_link=password_reset_link,
+            password_reset_token=token,
+        )
+
+    async def on_after_reset_password(
+        self,
+        user: User,
+        request: Optional["Request"] = None,
+    ):
+        log.warning(
+            'User %r has reset their password.',
+            user.id,
+        )
+
+        self.background_tasks.add_task(
+            send_password_success_reset_email,
+            user=user,
         )
 
     async def on_after_request_verify(
