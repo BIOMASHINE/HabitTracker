@@ -39,6 +39,7 @@ async def create_user(
 
 
 async def create_superuser(
+    username: str = 'root',
     email: str = default_email,
     password: str = default_password,
     is_active: bool = default_is_active,
@@ -47,6 +48,7 @@ async def create_superuser(
 ):
     try:
         user_create = UserCreate(
+            username=username,
             email=email,
             password=password,
             is_active=is_active,
