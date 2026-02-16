@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase, SQLAlchemyBaseUserTable
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from core.types.user_id import UserIdType
 from .mixins.created_at import CreatedAtMixin
@@ -22,3 +22,8 @@ class User(Base, IntIdPkMixin, CreatedAtMixin, SQLAlchemyBaseUserTable[UserIdTyp
     @classmethod
     def get_db(cls, session: "AsyncSession"):
         return SQLAlchemyUserDatabase(session, cls)
+
+    habits = relationship(
+        "Habit",
+        back_populates="user",
+    )
