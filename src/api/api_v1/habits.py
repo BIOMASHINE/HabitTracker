@@ -13,11 +13,13 @@ from services.habit import HabitService
 
 from api.dependencies.habits import get_user_habit
 
+from api.api_v1.completions import router as completion_router
+
 router = APIRouter(
     prefix=settings.api.v1.habits,
     tags=["Habits"],
 )
-
+router.include_router(completion_router)
 
 UserDep = Annotated[
     User,
@@ -45,7 +47,11 @@ async def get_habits(
     return habits
 
 
-@router.get("/{habit_id}", response_model=HabitRead)
+@router.get(
+    "/{habit_id}",
+    response_model=HabitRead,
+    summary="Habits:Get Habit",
+)
 async def get_habit(
     habit: Annotated[int, Depends(get_user_habit)],
 ):
@@ -94,7 +100,7 @@ async def update_habit(
 async def delete_habit(
     session: SessionDep,
     habit: Annotated[Habit, Depends(get_user_habit)],
-):
+) -> dict[str, bool]:
     service = HabitService(session=session)
 
     await service.delete_habit(habit=habit)
