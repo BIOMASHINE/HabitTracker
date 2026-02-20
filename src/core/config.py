@@ -17,6 +17,7 @@ class ApiV1Prefix(BaseModel):
     users: str = "/users"
     habits: str = "/habits"
     completions: str = "/completions"
+    stats: str = "/stats"
 
 
 class ApiPrefix(BaseModel):
