@@ -1,13 +1,14 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.api_v1.fastapi_users_router import current_user
+from api.dependencies.habits import get_user_habit
 from core.config import settings
-from core.models import db_helper, User, Habit
-from core.schemas.completion import CompletionCreate, CompletionRead
-from services.completions import CompletionService
+from core.models import db_helper, User
+from core.schemas.completion import CompletionRead
+from services.completion import CompletionService
 
 router = APIRouter(
     prefix=settings.api.v1.completions,
@@ -18,25 +19,12 @@ router = APIRouter(
     "/",
     response_model=CompletionRead,
     summary="Completions: Create completion",
+    dependencies=[Depends(get_user_habit)],
 )
 async def create_completion(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
-    user: Annotated[User, Depends(current_user)],
     habit_id: int,
 ):
-    habit = await session.get(Habit, habit_id)
-
-    if not habit:
-        raise HTTPException(
-            status_code=404,
-            detail="Habit does not exist",
-        )
-    if habit.user_id != user.id:
-        raise HTTPException(
-            status_code=403,
-            detail="You are not authorized to access this Habit",
-        )
-
     service = CompletionService(session=session)
 
     completion = await service.create_completion(
@@ -47,29 +35,15 @@ async def create_completion(
 
 
 @router.get(
-    "/",
+    "/{habit_id}",
     response_model=list[CompletionRead],
     summary="Completions: List all completions",
+    dependencies=[Depends(get_user_habit)],
 )
 async def read_all_completions(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
-    user: Annotated[User, Depends(current_user)],
     habit_id: int,
 ):
-    habit = await session.get(Habit, habit_id)
-
-    if not habit:
-        raise HTTPException(
-            status_code=404,
-            detail="Habit does not exist",
-        )
-
-    if habit.user_id != user.id:
-        raise HTTPException(
-            status_code=403,
-            detail="You are not authorized to access this Habit",
-        )
-
     service = CompletionService(session=session)
 
     completions = await service.get_completions(habit_id=habit_id)
