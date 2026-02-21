@@ -45,7 +45,7 @@
 1. **Клонируйте репозиторий**
     ```bash
     git clone https://github.com/BIOMASHINE/HabitTracker.git
-    cd habit-tracker
+    cd HabitTracker
 2. **Создайте виртуальное окружение и активируйте его**
     ```bash
     python -m venv venv
@@ -54,7 +54,7 @@
 3. **Установите зависимости**
     ```bash
     poetry install # для poetry
-    pip install . # для pip
+    pip install -e . # для pip
     uv sync # для uv
 4. **Настройте переменные окружения**
    #### Скопируйте .env.template в .env и отредактируйте под себя:
