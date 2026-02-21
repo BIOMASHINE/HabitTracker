@@ -1,3 +1,5 @@
+from datetime import date
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -9,7 +11,7 @@ class StatsService:
     def __init__(self, session: AsyncSession) -> None:
         self.session = session
 
-    async def count_stats(self, habit_id: int, limit: int) -> dict[str, int]:
+    async def count_stats(self, habit_id: int, limit: int) -> dict[str, int | list[date]]:
         query = (
             select(Completion.completed_at)
             .filter(Completion.habit_id == habit_id)
@@ -40,4 +42,5 @@ class StatsService:
             "streak": streak,
             "max_streak": max_streak,
             "total_completions": len(dates),
+            "dates": dates
         }
