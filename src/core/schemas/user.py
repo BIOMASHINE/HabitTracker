@@ -2,11 +2,11 @@ from datetime import datetime
 from typing import Annotated
 
 from fastapi_users import schemas
-from pydantic import Field
+from pydantic import ConfigDict, EmailStr, Field
 
 from core.types.user_id import UserIdType
 
-username = Annotated[
+name = Annotated[
     str,
     Field(
         max_length=33,
@@ -17,12 +17,12 @@ username = Annotated[
 
 class UserRead(schemas.BaseUser[UserIdType]):
     created_at: datetime
-    username: username
+    username: name
 
 
 class UserCreate(schemas.BaseUserCreate):
-    username: username
+    username: name
 
 
 class UserUpdate(schemas.BaseUserUpdate):
-    username: username
+    username: name | None = Field(default=None)
