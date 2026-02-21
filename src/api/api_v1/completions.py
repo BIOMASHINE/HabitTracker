@@ -16,9 +16,9 @@ router = APIRouter(
 
 
 @router.post(
-    "/",
+    "/{habit_id}",
     response_model=CompletionRead,
-    summary="Completions: Create completion",
+    summary="Completions:Create completion",
     dependencies=[Depends(get_user_habit)],
 )
 async def create_completion(
@@ -37,7 +37,7 @@ async def create_completion(
 @router.get(
     "/{habit_id}",
     response_model=list[CompletionRead],
-    summary="Completions: List all completions",
+    summary="Completions:List all completions",
     dependencies=[Depends(get_user_habit)],
 )
 async def read_all_completions(
@@ -53,7 +53,7 @@ async def read_all_completions(
 
 @router.delete(
     "/{completion_id}",
-    summary="Completions: Delete completion",
+    summary="Completions:Delete completion",
 )
 async def delete_completion(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
