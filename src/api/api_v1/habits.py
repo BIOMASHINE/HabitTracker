@@ -14,12 +14,14 @@ from services.habit import HabitService
 from api.dependencies.habits import get_user_habit
 
 from api.api_v1.completions import router as completion_router
+from .stats import router as stat_router
 
 router = APIRouter(
     prefix=settings.api.v1.habits,
     tags=["Habits"],
 )
 router.include_router(completion_router)
+router.include_router(stat_router)
 
 UserDep = Annotated[
     User,

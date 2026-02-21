@@ -12,18 +12,18 @@ from services.statistic import StatsService
 
 router = APIRouter(
     prefix=settings.api.v1.stats,
-    tags=["Stats"],
 )
 
 
 @router.get(
-    "/habits/{habit_id}",
+    "/{habit_id}",
     summary="Stats:Count all habit's stats",
     dependencies=[Depends(get_user_habit)],
     response_model=StatRead,
 )
 async def stats_counter(
-    habit_id: int, session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
+    habit_id: int,
+    session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
     limit: int = 30,
 ):
     service = StatsService(session=session)
