@@ -62,7 +62,7 @@
     cd src
     copy .env.template .env
     ```
-    #### Обязательно укажите DATABASE_URL
+    #### Обязательно укажите все параметры которые есть в .env.template
 5. **Примените миграции базы данных**
     ```bash
     alembic upgrade head
