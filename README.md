@@ -3,7 +3,6 @@
 [![Python](https://img.shields.io/badge/python-3.12-blue?logo=python)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.128-green?logo=fastapi)](https://fastapi.tiangolo.com)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue?logo=postgresql)](https://postgresql.org)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 **Habit Tracker** — это веб-приложение, которое помогает формировать полезные привычки и следить за их выполнением. Проект создан в рамках индивидуального проекта ученика 10 класса, но может быть полезен всем, кто хочет сделать свою жизнь более организованной.
 
