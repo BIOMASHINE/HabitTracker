@@ -18,7 +18,11 @@ class HabitService:
         self,
         user: "UserDep",
     ) -> Sequence[Habit]:
-        query = select(Habit).filter(Habit.user_id == user.id)
+        query = (
+            select(Habit)
+            .filter(Habit.user_id == user.id)
+            .order_by(Habit.id)
+        )
 
         result = await self.session.execute(query)
 
