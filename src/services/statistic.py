@@ -12,12 +12,19 @@ class StatsService:
         self.session = session
 
     async def count_stats(self, habit_id: int, limit: int) -> dict[str, int | list[date]]:
-        query = (
-            select(Completion.completed_at)
-            .filter(Completion.habit_id == habit_id)
-            .order_by(Completion.completed_at)
-            .limit(limit)
-        )
+        if limit == -1:
+            query = (
+                select(Completion.completed_at)
+                .filter(Completion.habit_id == habit_id)
+                .order_by(Completion.completed_at)
+            )
+        else:
+            query = (
+                select(Completion.completed_at)
+                .filter(Completion.habit_id == habit_id)
+                .order_by(Completion.completed_at)
+                .limit(limit)
+            )
 
         result = await self.session.execute(query)
 
