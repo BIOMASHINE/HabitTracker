@@ -58,7 +58,7 @@ async def create_superuser(
 
         async with db_helper.session_factory() as session:
             async with get_users_db_context(session) as users_db:
-                async with get_user_manager_context(users_db, background_tasks=BackgroundTasks) as user_manager:
+                async with get_user_manager_context(users_db, background_tasks=BackgroundTasks) as user_manager: # type: ignore
                     return await create_user(
                         user_manager=user_manager,
                         user_create=user_create,

@@ -11,7 +11,7 @@ async def get_user_habit(
     habit_id: int,
     user: Annotated[User, Depends(current_user)],
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
-) -> Type[Habit]:
+) -> Habit:
     habit = await session.get(Habit, habit_id)
 
     if not habit:

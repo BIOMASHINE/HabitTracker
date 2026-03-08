@@ -1,5 +1,5 @@
 __all__ = (
-    'get_user_habit'
+    'get_user_habit',
 )
 
 

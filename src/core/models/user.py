@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
 
 
-class User(Base, IntIdPkMixin, CreatedAtMixin, SQLAlchemyBaseUserTable[UserIdType]):
+class User(Base, IntIdPkMixin, CreatedAtMixin, SQLAlchemyBaseUserTable[UserIdType]): # type: ignore
     username: Mapped[str] = mapped_column(
         nullable=False,
         unique=True,
