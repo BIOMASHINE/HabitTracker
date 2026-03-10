@@ -34,7 +34,7 @@ SessionDep = Annotated[
 
 
 @router.get(
-    "/",
+    "",
     response_model=list[HabitRead],
     summary="Habits:Get Habits",
 )
@@ -61,7 +61,7 @@ async def get_habit(
 
 
 @router.post(
-    "/",
+    "",
     response_model=HabitRead,
     summary="Habits:Create Habit",
 )
