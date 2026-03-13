@@ -59,8 +59,10 @@ class SuperuserInfo(BaseModel):
 
 
 class SmtpConfig(BaseModel):
-    smtp_host: str = "127.0.0.1"
-    smtp_port: int = 1025
+    smtp_host: str
+    smtp_port: int
+    smtp_user: str
+    smtp_password: str
 
 
 class Settings(BaseSettings):
@@ -75,7 +77,7 @@ class Settings(BaseSettings):
     db: DatabaseConfig
     access_token: AccessToken
     superuser_info: SuperuserInfo
-    smtp: SmtpConfig = SmtpConfig()
+    smtp: SmtpConfig
 
 
 settings = Settings() # type: ignore
