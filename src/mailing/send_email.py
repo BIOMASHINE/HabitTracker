@@ -37,13 +37,15 @@ async def send_email(
         message.attach(plain_text_message)
         
     try:
+        use_tls = settings.smtp.smtp_port == 465
+        
         await aiosmtplib.send(
             message,
             hostname=settings.smtp.smtp_host,
             port=settings.smtp.smtp_port,
             username=settings.smtp.smtp_user,
             password=settings.smtp.smtp_password,
-            use_tls=True,
+            use_tls=use_tls,
         )
         logger.info(f"Email sent to {recipient}")
     except Exception as e:
