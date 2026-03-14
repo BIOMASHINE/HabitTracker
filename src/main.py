@@ -16,6 +16,7 @@ from actions.create_superuser import create_superuser
 from core.config import settings
 
 from api import router as api_router
+from utils import router as utils_router
 from core.models.db_helper import db_helper
 
 
@@ -34,6 +35,9 @@ main_app = FastAPI(
 )
 main_app.include_router(
     api_router,
+)
+main_app.include_router(
+    utils_router
 )
 
 main_app.add_middleware(
