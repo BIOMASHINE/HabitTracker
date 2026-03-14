@@ -40,7 +40,8 @@ main_app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://127.0.0.1:5500",
-        "https://track-your-life.netlify.app"
+        "https://track-your-life.netlify.app",
+        "https://habitrackr.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
