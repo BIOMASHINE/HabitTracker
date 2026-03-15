@@ -19,7 +19,12 @@ class DatabaseHelper:
             echo=echo,
             echo_pool=echo_pool,
             pool_size=pool_size,
-            max_overflow=max_overflow
+            max_overflow=max_overflow,
+            connect_args={
+                "prepared_statement_cache_size": 0,
+                "statement_cache_size": 0,
+                "ssl": "require"
+            }
         )
         self.session_factory: async_sessionmaker[AsyncSession] = (
             async_sessionmaker(
