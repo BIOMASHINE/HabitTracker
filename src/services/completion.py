@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from core.cache import invalidate_stats_cache
 from core.models import Completion, Habit
 
 
@@ -21,6 +22,8 @@ class CompletionService:
         await self.session.commit()
         await self.session.refresh(completion)
 
+        await invalidate_stats_cache(habit_id=habit_id)
+        
         return completion
 
     async def get_completions(self, habit_id: int):
@@ -48,3 +51,5 @@ class CompletionService:
 
         await self.session.delete(completion)
         await self.session.commit()
+        
+        await invalidate_stats_cache(habit_id=habit.id)

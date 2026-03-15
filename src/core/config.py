@@ -65,6 +65,10 @@ class SmtpConfig(BaseModel):
     smtp_password: str
 
 
+class RedisConfig(BaseModel):
+    url: str
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(BASE_DIR / ".env.template", BASE_DIR / ".env"),
@@ -78,6 +82,7 @@ class Settings(BaseSettings):
     access_token: AccessToken
     superuser_info: SuperuserInfo
     smtp: SmtpConfig
+    redis: RedisConfig
 
 
 settings = Settings() # type: ignore
